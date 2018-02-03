@@ -1,5 +1,5 @@
 ## Notice
-**The portfolio web site is still under development.**
+**The portfolio [web site](https://twkiwi.github.io/) is still under development.**
 
 
 # Po-Hong Chen ( Maxwell Chen )
