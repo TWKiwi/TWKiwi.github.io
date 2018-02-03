@@ -43,7 +43,7 @@
       Python, Jupyter Notebook, Commend Line, Tensorflow, Keras
 
    - Web Development
-      C#, PHP, front-end language, SQL language, ASP.Net, D3.js, C3.js, Visual Studio, TFS( in Visual Studio ), xampp, apache
+      C#, PHP, front-end programing, SQL language, ASP.Net, D3.js, C3.js, Visual Studio, TFS( in Visual Studio ), xampp, apache
 
    - Mobile Development
       Java, Android Studio
