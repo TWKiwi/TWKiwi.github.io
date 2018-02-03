@@ -1,3 +1,7 @@
+## Notice
+**The portfolio web site is still under development.**
+
+
 # Po-Hong Chen ( Maxwell Chen )
 ### Cell : +886-987-505629 
 ### Email : felicidad20120706@gmail.com
