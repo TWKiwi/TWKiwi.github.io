@@ -2,7 +2,7 @@
 **The portfolio [web site](https://twkiwi.github.io/) is still under development.**
 
 
-# Po-Hong Chen ( Maxwell Chen )
+# Po-Hong Chen ( Phelix Chen )
 ### Cell : +886-987-505629 
 ### Email : felicidad20120706@gmail.com
 ### Linkedin : https://www.linkedin.com/in/kiwipower/
