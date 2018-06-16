@@ -38,12 +38,51 @@
    <!-- script
    ================================================== -->   
    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.10/lodash.min.js"></script>
    <script type="text/javascript">
 	$(document).ready(function(){
+		var RandomStuID = []
+		var limit = 0;
+		$( "#StudentNumSubmit" ).click(function() {
+    		var startStudentID = parseFloat($( "#StudentNumStart" ).val())
+    		var endStudentID = parseFloat($( "#StudentNumEnd" ).val())
+    		
+
+    		RandomStuID = generationUniNum(startStudentID,endStudentID,endStudentID-startStudentID+1)
+    		$('#studentID').html(RandomStuID[limit])
+		});
+
+		function generationUniNum(lower_bound,upper_bound){
+			var arr = _.range(lower_bound, upper_bound+1);
+			console.log(arr)
+			arr = shuffle(arr)
+			console.log(arr)
+			return arr
+		}
+
+		function shuffle(array) {
+		 	var currentIndex = array.length, temporaryValue, randomIndex;
+
+		 	// While there remain elements to shuffle...
+		 	while (0 !== currentIndex) {
+
+		    	// Pick a remaining element...
+		    	randomIndex = Math.floor(Math.random() * currentIndex);
+		    	currentIndex -= 1;
+
+		    	// And swap it with the current element.
+		    	temporaryValue = array[currentIndex];
+		    	array[currentIndex] = array[randomIndex];
+		    	array[randomIndex] = temporaryValue;
+		 	}
+
+		  return array;
+		}
+
 		var dict = []; // create an empty array
 
 		
-    	$( "#push" ).click(function() {
+    	$( "#submit" ).click(function() {
     		var goodsid = $( "#goodsid" ).val()
     		var num = $( "#num" ).val()
     		html = "<tr><th>"+goodsid+"</th><th>"+num+"</th></tr>"
@@ -76,7 +115,7 @@
     	function randomSelect(num = 1){
     		var sum = calsum(dict)
     		var arr = new Array();
-    		if(num<sum){
+    		if(num<=sum){
     			for (var i = 0; i < num; ){
     				key = pickRandomProperty(dict)
     				if (dict[key].value - 1 >= 0){
@@ -105,12 +144,15 @@
     	$( "#pull" ).click(function() {
     		key_arr = randomSelect(parseFloat($('#pullnum').val()))
     		selection = []
-    		if(key_arr.length > 0){
+    		if(key_arr.length >= 0){
     			for(i in key_arr){
     				selection.push(dict[key_arr[i]].key)
 	    		}
 	    		refreshTable()
-	    		alert(selection)
+	    		alert(RandomStuID[limit]+"號同學抽中ID："+selection+"物品")
+	    		limit+=1
+	    		$('#studentID').html(RandomStuID[limit])
+	    		
     		}else{
     			alert("數量不足")
     		}
@@ -127,11 +169,22 @@
 
 <body id="top">
 
+	<div>
+		學生號碼：
+		<input id="StudentNumStart" placeholder="學生號碼"></input>
+		~
+		<input id="StudentNumEnd" placeholder="學生號碼"></input>
+		<button id="StudentNumSubmit" value="submit">送出</button> 
 
-	<span>
+	</div>	
+	<div>
+		<span id="studentID"></span>號同學請抽
+	</div>
+	<div>
+		用品輸入：
 		<input id="goodsid" placeholder="用品代號"></input>
 		<input id="num" placeholder="數量"></input>
-		<button id="push" value="push">送出</button> 
+		<button id="submit" value="submit">送出</button> 
 
 
 		<table id="tb">
@@ -140,14 +193,16 @@
 				<th>剩餘數量</th>
 			</tr>
 		</table>
-	</span>
+	</div>
 	
 
-	<span>
+	<div>
+		檢驗血統
 		<input id="pullnum" placeholder="抽幾張？"></input>
 		<button id="pull" value="pull">一抽入魂!</button> 
 		<div id="show"></div>
-	</span>
+		
+	</div>
 	
 
 	
