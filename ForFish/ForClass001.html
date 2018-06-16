@@ -105,7 +105,7 @@
     	$( "#pull" ).click(function() {
     		key_arr = randomSelect(parseFloat($('#pullnum').val()))
     		selection = []
-    		if(key_arr.length() > 0){
+    		if(key_arr.length > 0){
     			for(i in key_arr){
     				selection.push(dict[key_arr[i]].key)
 	    		}
