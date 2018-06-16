@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<!--[if IE 8 ]><html class="no-js oldie ie8" lang="en"> <![endif]-->
+<!--[if IE 9 ]><html class="no-js oldie ie9" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+
+   <!--- basic page needs
+   ================================================== -->
+   <meta charset="utf-8">
+	<title>物品分配專用</title>
+	<meta name="description" content="">  
+	<meta name="author" content="">
+
+   <!-- mobile specific metas
+   ================================================== -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+ 	<!-- CSS
+   ================================================== -->
+   <style>
+		table {
+		    font-family: arial, sans-serif;
+		    border-collapse: collapse;
+		    width: 100%;
+		}
+
+		td, th {
+		    border: 1px solid #dddddd;
+		    text-align: left;
+		    padding: 8px;
+		}
+
+		tr:nth-child(even) {
+		    background-color: #dddddd;
+		}
+	</style>
+
+   <!-- script
+   ================================================== -->   
+   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+   <script type="text/javascript">
+	$(document).ready(function(){
+		var dict = []; // create an empty array
+
+		
+    	$( "#push" ).click(function() {
+    		var goodsid = $( "#goodsid" ).val()
+    		var num = $( "#num" ).val()
+    		html = "<tr><th>"+goodsid+"</th><th>"+num+"</th></tr>"
+    		$('#tb tr:last').after(html);
+    		dict.push({
+			    key:   goodsid,
+			    value: num
+			});
+		});
+
+    	function calsum( obj ) {
+		  	var sum = 0;
+		  	for( var el in obj ) {
+		    	if( obj.hasOwnProperty( el ) ) {
+		      		sum += parseFloat( obj[el].value );
+		    	}
+		  	}
+		  	return sum;
+		}
+
+		function pickRandomProperty(obj) {
+		    var result;
+		    var count = 0;
+		    for (var prop in obj)
+		        if (Math.random() < 1/++count)
+		           result = prop;
+		    return result;
+		}
+
+    	function randomSelect(num = 1){
+    		var sum = calsum(dict)
+    		var arr = new Array();
+    		if(num<sum){
+    			for (var i = 0; i < num; ){
+    				key = pickRandomProperty(dict)
+    				if (dict[key].value - 1 >= 0){
+    					arr.push(key)
+    					dict[key].value = dict[key].value - 1
+    					i++
+    				}
+    				
+    			}	
+    		}
+    		return arr
+    	}
+
+    	function refreshTable(){
+			$('#tb').html("<table id='tb'><tr><th>物品ID</th><th>剩餘數量</th></tr></table>")
+			for( var el in dict ) {
+		    	if( dict.hasOwnProperty( el ) ) {
+		    		key = dict[el].key
+		      		value = parseFloat( dict[el].value )
+		      		html = "<tr><th>"+key+"</th><th>"+value+"</th></tr>"
+		      		$('#tb tr:last').after(html)
+		    	}
+		  	}
+    	}
+
+    	$( "#pull" ).click(function() {
+    		key_arr = randomSelect(5)
+    		selection = []
+    		console.log(dict)
+    		for(i in key_arr){
+    			console.log(i)
+    			selection.push(dict[key_arr[i]].key)
+    		}
+    		refreshTable()
+    		alert(selection)
+		});
+	});
+   </script>
+
+   <!-- favicons
+	================================================== -->
+
+
+</head>
+
+<body id="top">
+
+
+	<span>
+		<input id="goodsid" placeholder="用品代號"></inpute>
+		<input id="num" placeholder="數量"></inpute>
+		<button id="push" value="push">送出</button> 
+
+
+		<table id="tb">
+			<tr>
+				<th>物品ID</th>
+				<th>剩餘數量</th>
+			</tr>
+		</table>
+	</span>
+	
+
+	<span>
+		<button id="pull" value="pull">一抽入魂!</button> 
+		<div id="show"></div>
+	</span>
+	
+
+	
+   
+
+</body>
+
+</html>
