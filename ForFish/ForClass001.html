@@ -103,15 +103,18 @@
     	}
 
     	$( "#pull" ).click(function() {
-    		key_arr = randomSelect(5)
+    		key_arr = randomSelect(parseFloat($('#pullnum').val()))
     		selection = []
-    		console.log(dict)
-    		for(i in key_arr){
-    			console.log(i)
-    			selection.push(dict[key_arr[i]].key)
+    		if(key_arr.length() > 0){
+    			for(i in key_arr){
+    				selection.push(dict[key_arr[i]].key)
+	    		}
+	    		refreshTable()
+	    		alert(selection)
+    		}else{
+    			alert("數量不足")
     		}
-    		refreshTable()
-    		alert(selection)
+    		
 		});
 	});
    </script>
@@ -126,8 +129,8 @@
 
 
 	<span>
-		<input id="goodsid" placeholder="用品代號"></inpute>
-		<input id="num" placeholder="數量"></inpute>
+		<input id="goodsid" placeholder="用品代號"></input>
+		<input id="num" placeholder="數量"></input>
 		<button id="push" value="push">送出</button> 
 
 
@@ -141,6 +144,7 @@
 	
 
 	<span>
+		<input id="pullnum" placeholder="抽幾張？"></input>
 		<button id="pull" value="pull">一抽入魂!</button> 
 		<div id="show"></div>
 	</span>
